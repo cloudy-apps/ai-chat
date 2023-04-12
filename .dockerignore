@@ -1,5 +1,4 @@
 src/
-dist/
 .github/
 node_modules/
 jest*
