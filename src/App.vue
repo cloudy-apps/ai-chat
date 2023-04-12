@@ -33,8 +33,11 @@ export default defineComponent({
     ]);
 
     async function onSubmit(message: string) {
+      const history = unref(messages);
+      
+      history.push({ role: 'user', content: message });
       const response = await ask(message);
-      unref(messages).push(response);
+      history.push(response);
     }
 
     async function ask(message: string): Promise<Message> {
