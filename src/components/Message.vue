@@ -29,13 +29,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+export interface Message { role: string; content: string }
+
 export default defineComponent({
   name: 'Message',
   props: {
     message: {
       type: Object,
       required: false,
-      default: () => ({}),
+      default: () => ({ role: '', content: '' }),
     },
   },
 });

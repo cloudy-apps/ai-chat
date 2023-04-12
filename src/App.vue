@@ -1,47 +1,53 @@
 <template>
   <div class="bg-indigo-900 p-6">
-    <chat-history :messages="messages"></chat-history>
+    <chat-history :messages="messages" />
+    <div class="flex">
+      <textarea v-model="message"></textarea>
+      <button class="shrink-0" @click="onSubmit()">GO</button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import ChatHistory from './components/ChatHistory.vue';
+import { Message } from './components/Message.vue';
+import { ref, unref } from 'vue';
+import { defineComponent } from 'vue';
 
-export class ChatService {
-  async ask(question: string) {
-    if (!question) {
-      throw new Error('');
-    }
-
-    const options = { method: 'post', mode: 'cors', body: String(question) };
-    return fetch('https://chat.homebots.io/chat', options as any).then((x) =>
-      x.json()
-    );
+class ChatService {
+  async ask(question: Message, history: Message[] = []) {
+    const questions = history.concat(question);
+    const options = { method: 'post', mode: 'cors', body: String(questions) };
+    return fetch('https://chat.homebots.io/chat', options as any).then((x) => x.json());
   }
 }
 
-export default {
+export default defineComponent({
   name: 'App',
-  components: {
-    ChatHistory,
-  },
-  created() {
-    this.chat = new ChatService();
-  },
-  mounted() {},
-  data: () => ({
-    messages: [
+  setup() {
+    const chat = new ChatService();
+    const message = ref('');
+    const messages = ref([
       {
         role: 'assistant',
         content: 'Hi! Ask me anything :)',
       },
-    ],
-  }),
-  methods: {
-    async ask(message) {
-      const response = await this.chat.ask(this.messages);
-      this.messages.push(response);
-    },
+    ]);
+
+    async function onSubmit() {
+      const response = await ask(unref(message));
+      unref(messages).push(response);
+      message.value = '';
+    }
+
+    async function ask(message: string): Promise<Message> {
+      const history = unref(messages);
+      const question = { role: 'user', content: message };
+
+      return await chat.ask(question, history);
+    }
+
+    return { message, messages, onSubmit };
   },
-};
+});
 </script>

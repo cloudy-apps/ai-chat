@@ -11,16 +11,17 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Message from "./Message.vue";
+import { Message } from "./Message.vue";
+import MessageComponent from "./Message.vue";
 
 export default defineComponent({
   name: "ChatHistory",
   components: {
-    Message,
+    Message: MessageComponent,
   },
   props: {
     messages: {
-      type: Array,
+      type: Array<Message>,
       required: false,
       default: () => [],
     },
