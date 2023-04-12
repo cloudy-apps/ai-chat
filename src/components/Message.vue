@@ -6,20 +6,12 @@
     <div class="flex items-center space-x-4">
       <div class="shrink-0">
         <div
-          class="
-            h-12
-            w-12
-            rounded-full
-            text-center
-            bg-gray-100
-            border border-slate-300
-          "
-        >
-          {{ message.role === 'assistant' ? 'A' : 'Me' }}
-        </div>
+  class="text-indigo-900 font-bold w-12 h-12 rounded-full flex items-center justify-center bg-gray-100 border border-slate-300"
+>{{ message.role === 'assistant' ? 'AI' : 'Me' }}</div>
+
       </div>
       <div>
-        <h1 class="text-md font-bold mb-2">{{ message.role }}</h1>
+        <h1 class="text-md font-bold mb-2">{{ message.role === 'assistant' ? 'Jarvis' : 'Me' }}</h1>
         <p class="text-base">{{ message.content }}</p>
       </div>
     </div>
@@ -29,10 +21,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export interface Message { role: string; content: string }
-
 export default defineComponent({
-  name: 'Message',
   props: {
     message: {
       type: Object,

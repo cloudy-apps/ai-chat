@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "main": "./index.js",
   "scripts": {
-    "ci": "npm i && npm run build",
+    "ci": "npm i && npm run check && npm run build",
     "dev": "vite --host 0.0.0.0",
-    "build": "vue-tsc && vite build",
+    "check": "vue-tsc",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "prettier": "@cloud-cli/prettier-config",
@@ -20,8 +21,6 @@
   "devDependencies": {
     "@cloud-cli/jest-config": "^1.0.0",
     "@cloud-cli/prettier-config": "^1.0.0",
-    "@cloud-cli/typescript-config": "^1.0.0",
-    "@types/node": "^18.15.11",
     "@vitejs/plugin-vue": "^4.1.0",
     "typescript": "^5.0.2",
     "vite": "^4.2.1",

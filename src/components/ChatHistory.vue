@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1 class="mx-4">Chat</h1>
-    <Message
+    <message-card
       v-for="(message, index) in messages"
       :key="index"
       :message="message"
@@ -10,14 +9,13 @@
 </template>
 
 <script lang="ts">
+import type { Message } from "../services/chat-service.js";
 import { defineComponent } from "vue";
-import { Message } from "./Message.vue";
-import MessageComponent from "./Message.vue";
+import MessageCard from "./Message.vue";
 
 export default defineComponent({
-  name: "ChatHistory",
   components: {
-    Message: MessageComponent,
+    MessageCard,
   },
   props: {
     messages: {
