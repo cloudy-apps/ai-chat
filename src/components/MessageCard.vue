@@ -3,7 +3,7 @@
     class="rounded-lg shadow-md px-4 py-2 text-gray-800 mb-4"
     :class="(isAssistant && 'bg-blue-100') || 'bg-white'"
   >
-    <div class="flex items-center space-x-4">
+    <div class="flex items-top space-x-4">
       <div class="shrink-0">
         <div
   class="text-indigo-900 font-bold w-12 h-12 rounded-full flex items-center justify-center bg-gray-100 border border-slate-300"
