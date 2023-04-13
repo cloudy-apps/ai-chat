@@ -29,7 +29,7 @@ export function useChat() {
   }
 
   function append(message: Message) {
-    const newHistory = history.value = unref(history).concat(newMessage);
+    const newHistory = history.value = unref(history).concat(message);
     localStorage.history = JSON.stringify(newHistory);
   }
 
@@ -37,10 +37,10 @@ export function useChat() {
     if (!message.trim()) return;
 
     const newMessage = { role: 'user', content: message };
-    this.append(newMessage);
+    append(newMessage);
 
-    const response = await fetchResults(message);
-    this.append(response);
+    const response = await fetchResults(newMessage);
+    append(response);
   }
 
   return { history, ask };
