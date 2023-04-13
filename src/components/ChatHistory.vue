@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts">
-import type { Message } from "../services/chat-service.js";
 import { defineComponent } from "vue";
+import type { Message } from "../composables/chat.js";
 import MessageCard from "./MessageCard.vue";
 
 export default defineComponent({

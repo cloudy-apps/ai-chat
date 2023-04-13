@@ -16,7 +16,7 @@ const prompt = () => [
 export function useChat() {
   const history = ref(localStorage.history ? JSON.parse(localStorage.history) : prompt());
 
-  async function fetch(question: Message) {
+  async function fetchResults(question: Message) {
     const messages = unref(history).concat(question);
     const options = {
       method: 'post',
@@ -39,7 +39,7 @@ export function useChat() {
     const newMessage = { role: 'user', content: message };
     this.append(newMessage);
 
-    const response = await this.ask(message);
+    const response = await fetchResults(message);
     this.append(response);
   }
 
