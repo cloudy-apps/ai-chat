@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <message-card
-      v-for="(message, index) in messages"
-      :key="index"
-      :message="message"
-    />
-  </div>
+  <message-card
+    v-for="(message, index) in messages"
+    :key="index"
+    :message="message"
+  />
 </template>
 
 <script lang="ts">
 import type { Message } from "../services/chat-service.js";
 import { defineComponent } from "vue";
-import MessageCard from "./Message.vue";
+import MessageCard from "./MessageCard.vue";
 
 export default defineComponent({
   components: {
