@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center p-4 bg-white rounded-lg shadow-md">
+  <div class="flex items-center p-4 bg-white rounded-t-lg mx-4 shadow-md border border-slate-300">
     <textarea
       v-model="message"
       @keydown.enter.prevent="sendMessage"
@@ -8,11 +8,12 @@
       rows="1"
     ></textarea>
     <button
+      v-else
       @click="sendMessage"
+      :disabled="pending"
+      :class="pending && 'animate-pulse'"
       class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-    >
-      Send
-    </button>
+    >Send</button>
   </div>
 </template>
 
@@ -23,9 +24,13 @@ export default defineComponent({
   emits: ['send'],
   setup(_, ctx) {
     const message = ref('');
+    defineProps({
+      pending: { type: Boolean, default: false },
+    })
 
     function sendMessage() {
       const content = message.value.trim();
+
       if (content) {
         ctx.emit('send', content);
         message.value = '';

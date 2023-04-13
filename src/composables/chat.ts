@@ -15,6 +15,7 @@ const prompt = () => [
 
 export function useChat() {
   const history = ref(localStorage.history ? JSON.parse(localStorage.history) : prompt());
+  const pending = ref(false);
 
   async function fetchResults(question: Message) {
     const messages = unref(history).concat(question);
@@ -34,14 +35,16 @@ export function useChat() {
   }
 
   async function ask(message: string) {
-    if (!message.trim()) return;
+    if (!message.trim() || unref(pending)) return;
 
     const newMessage = { role: 'user', content: message };
     append(newMessage);
-
+    
+    pending.value = true;
     const response = await fetchResults(newMessage);
     append(response);
+    pending.value = false;
   }
 
-  return { history, ask };
+  return { history, pending, ask };
 }
