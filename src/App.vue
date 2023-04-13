@@ -21,8 +21,8 @@ export default defineComponent({
     const chat = new ChatService();
     const { history } = chat;
 
-    function onSubmit(message) {
-      chat.ask(message)
+    function onSubmit(message: string) {
+      chat.ask(message);
     }
 
     return { onSubmit, history };
