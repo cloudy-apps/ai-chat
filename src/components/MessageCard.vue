@@ -12,7 +12,7 @@
       </div>
       <div>
         <h1 class="text-md font-bold mb-2">{{ isAssistant ? 'Jarvis' : 'Me' }}</h1>
-        <p class="text-base">{{ message.content }}</p>
+        <div class="text-base whitespace-pre-wrap">{{ message.content }}</div>
       </div>
     </div>
   </div>
