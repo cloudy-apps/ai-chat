@@ -19,7 +19,7 @@ export function useChat() {
 
   async function fetchResults() {
     const messages = unref(history);
-    const payload = { messages };
+    let payload: any = { messages };
 
     if (localStorage.model) {
       payload.model = localStorage.model;
