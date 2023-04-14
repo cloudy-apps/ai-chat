@@ -8,12 +8,13 @@
     ></textarea>
     <button 
       @click="speechToText"
+      class="bg-blue-300 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       :disabled="pending"><span class="material-icons">mic</span></button>
     <button
       @click="sendMessage"
       :disabled="pending"
       :class="pending && 'animate-pulse bg-slate-400'"
-      class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-blue-600 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     ><span class="material-icons">send</span></button>
   </div>
 </template>
