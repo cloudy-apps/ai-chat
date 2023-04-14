@@ -24,9 +24,10 @@ export default defineComponent({
   emits: ['send'],
   setup(_, ctx) {
     const message = ref('');
+    
     defineProps({
       pending: { type: Boolean, default: false },
-    })
+    });
 
     function sendMessage() {
       const content = message.value.trim();

@@ -20,7 +20,7 @@ import MessageCard from './MessageCard.vue';
 import NewMessage from './components/NewMessage.vue';
 
 export default defineComponent({
-  components: { ChatHistory, NewMessage },
+  components: { MessageCard, NewMessage },
  
   setup() {
     const { history, pending, ask } = useChat();

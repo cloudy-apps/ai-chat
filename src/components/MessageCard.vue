@@ -1,7 +1,7 @@
 <template>
   <div
     class="rounded-lg shadow-md px-4 py-2 text-gray-800 mb-4"
-    :class="(isAssistant && 'bg-blue-100') || 'bg-white'"
+    :class="(isAssistant && 'bg-blue-100 ml-12') || 'bg-white'"
   >
     <div class="flex items-top space-x-4">
       <div class="shrink-0">
