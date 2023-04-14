@@ -6,25 +6,34 @@
       placeholder="Type your message"
       rows="1"
     ></textarea>
+    <button 
+      @click="speechToText"
+      :disabled="pending"><span class="material-icons">mic</span></button>
     <button
       @click="sendMessage"
       :disabled="pending"
-      :class="pending && 'animate-pulse'"
+      :class="pending && 'animate-pulse bg-slate-400'"
       class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-    >Send</button>
+    ><span class="material-icons">send</span></button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
+import { useSpeech } from '../composables/speech.js';
 
 export default defineComponent({
   props: {
     pending: { type: Boolean, default: false },
   },
+
   emits: ['send'],
+  
   setup(_, ctx) {
     const message = ref('');
+    const { output, start: speechToText } = useSpeech();
+
+    watch(output, (value) => message.value = value);
 
     function sendMessage() {
       const content = message.value.trim();
@@ -35,7 +44,7 @@ export default defineComponent({
       }
     }
 
-    return { message, sendMessage };
+    return { message, sendMessage, speechToText };
   },
 });
 </script>

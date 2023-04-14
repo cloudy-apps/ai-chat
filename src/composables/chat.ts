@@ -19,11 +19,17 @@ export function useChat() {
 
   async function fetchResults() {
     const messages = unref(history);
+    const payload = { messages };
+
+    if (localStorage.model) {
+      payload.model = localStorage.model;
+    }
+
     const options = {
       method: 'post',
       mode: 'cors',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ messages }),
+      body: JSON.stringify(payload),
     };
 
     return fetch('https://chat.homebots.io/chat', options as any).then((x) => x.json());
