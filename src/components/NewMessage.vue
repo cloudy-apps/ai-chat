@@ -2,7 +2,6 @@
   <div class="flex items-center p-4 bg-white rounded-t-lg mx-4 shadow-md border border-slate-300">
     <textarea
       v-model="message"
-      @keydown.enter.prevent="sendMessage"
       class="flex-grow mr-4 resize-none border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type your message"
       rows="1"
