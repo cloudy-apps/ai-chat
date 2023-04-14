@@ -16,7 +16,7 @@
 import { defineComponent } from 'vue';
 import { useChat } from './composables/chat.js';
 
-import MessageCard from './MessageCard.vue';
+import MessageCard from './components/MessageCard.vue';
 import NewMessage from './components/NewMessage.vue';
 
 export default defineComponent({

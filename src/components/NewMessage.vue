@@ -21,13 +21,12 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
+  props: {
+    pending: { type: Boolean, default: false },
+  },
   emits: ['send'],
   setup(_, ctx) {
     const message = ref('');
-    
-    defineProps({
-      pending: { type: Boolean, default: false },
-    });
 
     function sendMessage() {
       const content = message.value.trim();
