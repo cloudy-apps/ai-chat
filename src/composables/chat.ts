@@ -17,8 +17,8 @@ export function useChat() {
   const history = ref(localStorage.history ? JSON.parse(localStorage.history) : prompt());
   const pending = ref(false);
 
-  async function fetchResults(question: Message) {
-    const messages = unref(history).concat(question);
+  async function fetchResults() {
+    const messages = unref(history);
     const options = {
       method: 'post',
       mode: 'cors',
@@ -41,7 +41,7 @@ export function useChat() {
     append(newMessage);
     
     pending.value = true;
-    const response = await fetchResults(newMessage);
+    const response = await fetchResults();
     append(response);
     pending.value = false;
   }
