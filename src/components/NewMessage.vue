@@ -8,7 +8,6 @@
       rows="1"
     ></textarea>
     <button
-      v-else
       @click="sendMessage"
       :disabled="pending"
       :class="pending && 'animate-pulse'"
