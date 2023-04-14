@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center p-4 bg-white rounded-t-lg mx-4 shadow-md border border-slate-300">
+  <form class="flex items-center p-4 bg-white rounded-t-lg mx-4 shadow-md border border-slate-300" @submit.prevent="sendMessage">
     <textarea
       v-model="message"
       class="flex-grow mr-4 resize-none border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
@@ -8,15 +8,16 @@
     ></textarea>
     <button 
       @click="speechToText"
-      class="bg-blue-300 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-blue-500 leading-4 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      :class="inProgress && 'animate-pulse bg-red-500'"
       :disabled="pending"><span class="material-icons">mic</span></button>
     <button
-      @click="sendMessage"
       :disabled="pending"
       :class="pending && 'animate-pulse bg-slate-400'"
-      class="bg-blue-600 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      type="submit"
+      class="bg-blue-600 leading-4 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     ><span class="material-icons">send</span></button>
-  </div>
+  </form>
 </template>
 
 <script lang="ts">
@@ -32,7 +33,7 @@ export default defineComponent({
   
   setup(_, ctx) {
     const message = ref('');
-    const { output, start: speechToText } = useSpeech();
+    const { output, inProgress, start: speechToText } = useSpeech();
 
     watch(output, (value) => message.value = value);
 
@@ -45,7 +46,7 @@ export default defineComponent({
       }
     }
 
-    return { message, sendMessage, speechToText };
+    return { message, sendMessage, inProgress, speechToText };
   },
 });
 </script>
