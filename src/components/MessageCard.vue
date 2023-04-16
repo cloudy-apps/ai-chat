@@ -8,7 +8,6 @@
         <div
   class="text-indigo-900 font-bold w-12 h-12 rounded-full flex items-center justify-center bg-gray-100 border border-slate-300"
 >{{ isAssistant ? 'AI' : 'ME' }}</div>
-
       </div>
       <div>
         <h1 class="text-md font-bold mb-2">{{ isAssistant ? 'Jarvis' : 'Me' }}</h1>

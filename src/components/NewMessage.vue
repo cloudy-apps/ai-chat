@@ -9,7 +9,7 @@
     
     <button
       :disabled="pending"
-      :class="pending && 'animate-pulse bg-slate-400' || 'bg-blue-600'"
+      :class="pending && 'animate-pulse bg-slate-200' || 'bg-blue-600'"
       type="submit"
       class="leading-4 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     ><span class="material-icons">send</span></button>
