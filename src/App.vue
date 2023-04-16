@@ -22,7 +22,7 @@ export default defineComponent({
     const { history, pending, ask } = useChat();
 
     function focusLast() {
-      const lastCard = document.querySelector('main').lastElementChild?.scrollIntoView();
+      document.querySelector('main').lastElementChild?.scrollIntoView();
     }
 
     watch(history, focusLast);
