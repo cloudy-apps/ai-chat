@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, watch } from 'vue';
 import { useChat } from './composables/chat.js';
 
 import MessageCard from './components/MessageCard.vue';
@@ -20,6 +20,12 @@ export default defineComponent({
  
   setup() {
     const { history, pending, ask } = useChat();
+
+    function focusLast() {
+      const lastCard = document.querySelector('main').lastElementChild?.scrollIntoView();
+    }
+
+    watch(history, focusLast);
 
     return { history, pending, ask };
   },
