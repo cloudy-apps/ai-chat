@@ -22,7 +22,7 @@ export default defineComponent({
     const { history, pending, ask, removeAt } = useChat();
 
     function focusLast() {
-      document.querySelector('main')?.lastElementChild?.scrollIntoView();
+      setTimeout(() => document.querySelector('main')?.lastElementChild?.scrollIntoView(), 1000);
     }
 
     watch(history, focusLast);

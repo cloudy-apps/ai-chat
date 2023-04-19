@@ -5,16 +5,20 @@ export interface Message {
   content: string;
 }
 
-const prompt = () => [
-  {
-    role: "assistant",
-    content: "Hi! Ask me anything :)",
-  },
-];
+function prompt(): Message[] {
+  return [
+    {
+      role: "assistant",
+      content: "Hi! Ask me anything :)",
+    },
+  ];
+}
 
 export function useChat() {
   const history = ref(
-    localStorage.history ? JSON.parse(localStorage.history) : prompt()
+    (localStorage.history
+      ? JSON.parse(localStorage.history)
+      : prompt()) as Message[]
   );
   const pending = ref(false);
 
@@ -38,7 +42,7 @@ export function useChat() {
     );
   }
 
-  function saveHistory(list) {
+  function saveHistory(list: Message[]) {
     localStorage.history = JSON.stringify(list);
   }
 
@@ -47,7 +51,7 @@ export function useChat() {
     saveHistory(newHistory);
   }
 
-  function removeAt(index) {
+  function removeAt(index: number) {
     const list = unref(history);
 
     if (list[index]) {
@@ -68,5 +72,5 @@ export function useChat() {
     pending.value = false;
   }
 
-  return { history, pending, ask };
+  return { history, pending, ask, removeAt };
 }
