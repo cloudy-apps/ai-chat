@@ -9,15 +9,16 @@
 
     <button
       :disabled="pending"
-      :class="pending && 'animate-pulse bg-gray-200' || 'bg-blue-600'"
+      :class="pending && 'bg-gray-200'"
       type="submit"
-      class="leading-4 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-blue-600 leading-4 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     ><span class="material-icons">send</span></button>
     <button
+      :disabled="pending"
+      class="bg-blue-600 leading-4 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       @click="speechToText"
-      class="leading-4 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-      :class="inProgress && 'animate-pulse bg-red-500' || 'bg-blue-500'"
-      :disabled="pending"><span class="material-icons">mic</span></button>
+      :class="[inProgress && 'animate-pulse bg-red-500', pending && 'bg-gray-200']"
+      ><span class="material-icons">mic</span></button>
   </form>
 </template>
 

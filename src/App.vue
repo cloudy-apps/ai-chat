@@ -5,18 +5,17 @@
     </header>
     <main
       class="flex flex-col flex-grow p-4 overflow-y-auto"
-      @remove="removeAt($event)"
     >
       <MessageCard
         v-for="(message, index) in history"
         :key="index"
-        :id="index"
         :message="message"
+        @remove="removeAt(index)"
       />
       <MessageCard
         v-if="pending"
         :id="-1"
-        :message="{ role: '', content: '...' }"
+        :message="{ role: 'assistant', content: '...' }"
         class="animate-pulse"
       />
     </main>
