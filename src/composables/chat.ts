@@ -55,7 +55,8 @@ export function useChat() {
     const list = unref(history);
 
     if (list[index]) {
-      const newHistory = (history.value = list.splice(index, 1));
+      const newHistory = history.value.filter((m) => m !== list[index]);
+      history.value = newHistory;
       saveHistory(newHistory);
     }
   }
