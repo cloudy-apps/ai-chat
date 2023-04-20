@@ -4,10 +4,10 @@
     :class="(isAssistant && 'bg-blue-100 ml-12') || 'bg-white'"
   >
     <div class="flex absolute top-0 right-0 mr-2 mt-1">
-      <button class=" focus:outline-none" @click="renderMessage">
+      <button class="focus:outline-none" @click="renderMessage">
         <span class="material-icons text-blue-500 focus:text-blue-600">visibility</span>
       </button>
-      <button class=" focus:outline-none" @click="removeMessage">
+      <button v-if="removable" class="focus:outline-none" @click="removeMessage">
         <span class="material-icons text-gray-500 focus:text-gray-600">close</span>
       </button>
     </div>
@@ -22,6 +22,10 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
+    removable: {
+      type: Boolean,
+      default: true,
+    },
     message: {
       type: Object,
       required: false,

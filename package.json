@@ -24,10 +24,8 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "typescript": "^5.0.2",
     "vite": "^4.2.1",
-    "vue-tsc": "^1.2.0"
-  },
-  "dependencies": {
-    "@cloud-cli/gw": "^1.6.1",
-    "vue": "^3.2.47"
+    "vue-tsc": "^1.2.0",
+    "vue": "^3.2.47",
+    "@cloud-cli/gw": "^1.6.1"
   }
 }
