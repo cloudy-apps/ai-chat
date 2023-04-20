@@ -12,7 +12,7 @@
       </button>
     </div>
     <h1 class="font-bold mb-2">{{ isAssistant ? 'Jarvis' : 'Me' }}</h1>
-    <div v-if="!htmlMessage">{{ message.content }}</div>
+    <div v-if="!htmlMessage" class="text-sm">{{ message.content }}</div>
     <div v-else v-html="htmlMessage" class="whitespace-pre-wrap"></div>
   </div>
 </template>
