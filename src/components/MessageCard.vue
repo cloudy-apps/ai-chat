@@ -1,19 +1,23 @@
 <template>
   <div
-    class="rounded-lg shadow-md p-4 text-gray-800 mb-4 relative"
-    :class="(isAssistant && 'bg-blue-100 ml-12') || 'bg-white'"
+    :class="[
+      isDivider && 'h-1 shadow mb-4 bg-gray-300',
+      isAssistant && 'rounded-lg shadow-md p-4 text-gray-800 mb-4 relative bg-blue-100 ml-12',
+      isMe && 'rounded-lg shadow-md p-4 text-gray-800 mb-4 relative bg-white'
+    ]"
   >
-    <div class="flex absolute top-0 right-0 mr-2 mt-1">
-      <button class="focus:outline-none" @click="renderMessage">
-        <span class="material-icons text-blue-500 focus:text-blue-600">visibility</span>
-      </button>
-      <button v-if="removable" class="focus:outline-none" @click="removeMessage">
-        <span class="material-icons text-gray-500 focus:text-gray-600">close</span>
-      </button>
-    </div>
-    <h1 class="font-bold mb-2">{{ isAssistant ? 'Jarvis' : 'Me' }}</h1>
-    <div v-if="!htmlMessage" class="text-sm">{{ message.content }}</div>
-    <div v-else v-html="htmlMessage" class="whitespace-pre-wrap"></div>
+    <template v-if="!isDivider">
+      <div class="flex absolute top-0 right-0 mr-2 mt-1 text-gray-500">
+        <button class="focus:outline-none" @click="renderMessage">
+          <span class="material-icons focus:text-gray-600">visibility</span>
+        </button>
+        <button v-if="removable" class="focus:outline-none" @click="removeMessage">
+          <span class="material-icons focus:text-gray-600">close</span>
+        </button>
+      </div>
+      <div v-if="!htmlMessage" class="text-sm">{{ message.content }}</div>
+      <div v-else v-html="htmlMessage" class="whitespace-pre-wrap"></div>
+    </template>
   </div>
 </template>
 
@@ -36,6 +40,9 @@ export default defineComponent({
   computed: {
     isMe() {
       return this.message.role === "user";
+    },
+    isDivider() {
+      return this.message.role === "divider";
     },
     isAssistant() {
       return this.message.role === "assistant";

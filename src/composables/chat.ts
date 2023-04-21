@@ -24,7 +24,12 @@ export function useChat() {
 
   async function fetchResults() {
     const messages = unref(history);
-    let payload: any = { messages };
+    const payload: any = { messages };
+    const dividerIndex = messages.findIndex(m => m.role === 'divider');
+
+    if (dividerIndex !== -1) {
+      payload.messages = messages.slice(dividerIndex + 1);
+    }
 
     if (localStorage.model) {
       payload.model = localStorage.model;
@@ -63,6 +68,11 @@ export function useChat() {
 
   async function ask(message: string) {
     if (!message.trim() || unref(pending)) return;
+
+    if (message.trim() === 'add divider') {
+      append({ role: 'divider', content: '' });
+      return;
+    }
 
     const newMessage = { role: "user", content: message };
     append(newMessage);
