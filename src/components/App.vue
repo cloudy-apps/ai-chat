@@ -27,10 +27,10 @@
 
 <script lang="ts">
   import { defineComponent, watch } from "vue";
-  import { useChat } from "./composables/chat.js";
+  import { useChat } from "../composables/chat.js";
 
-  import MessageCard from "./components/MessageCard.vue";
-  import NewMessage from "./components/NewMessage.vue";
+  import MessageCard from "../components/MessageCard.vue";
+  import NewMessage from "../components/NewMessage.vue";
 
   export default defineComponent({
     components: { MessageCard, NewMessage },
