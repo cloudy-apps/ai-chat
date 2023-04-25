@@ -66,11 +66,19 @@ export function useChat() {
     }
   }
 
+  function addDivider() {
+    const newHistory = unref(history).filter(m => m.role !== 'divider');
+    newHistory.push({ role: 'divider', content: '' });
+
+    history.value = newHistory;
+    saveHistory(newHistory);
+  }
+
   async function ask(message: string) {
     if (!message.trim() || unref(pending)) return;
 
     if (message.trim() === 'add divider') {
-      append({ role: 'divider', content: '' });
+      addDivider();
       return;
     }
 
