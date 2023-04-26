@@ -22,40 +22,43 @@
       :disabled="pending"
       class="bg-blue-600 leading-4 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       @click="speechToText"
-      :class="[inProgress && 'animate-pulse bg-red-500', pending && 'bg-gray-200']"
+      :class="[
+        inProgress && 'animate-pulse bg-red-500',
+        pending && 'bg-gray-200',
+      ]"
     >
       <span class="material-icons">mic</span>
     </button>
   </form>
 </template>
 
-<script>
-  import { defineComponent, ref, watch } from "vue";
-  import { useSpeech } from "../composables/speech.js";
+<script lang="ts">
+import { defineComponent, ref, watch } from "vue";
+import { useSpeech } from "../composables/speech.js";
 
-  export default defineComponent({
-    props: {
-      pending: { type: Boolean, default: false },
-    },
+export default defineComponent({
+  props: {
+    pending: { type: Boolean, default: false },
+  },
 
-    emits: ["send"],
+  emits: ["send"],
 
-    setup(_, ctx) {
-      const message = ref("");
-      const { output, inProgress, start: speechToText } = useSpeech();
+  setup(_, ctx) {
+    const message = ref("");
+    const { output, inProgress, start: speechToText } = useSpeech();
 
-      watch(output, (value) => (message.value = value));
+    watch(output, (value) => (message.value = value));
 
-      function sendMessage() {
-        const content = message.value.trim();
+    function sendMessage() {
+      const content = message.value.trim();
 
-        if (content) {
-          ctx.emit("send", content);
-          message.value = "";
-        }
+      if (content) {
+        ctx.emit("send", content);
+        message.value = "";
       }
+    }
 
-      return { message, sendMessage, inProgress, speechToText };
-    },
-  });
+    return { message, sendMessage, inProgress, speechToText };
+  },
+});
 </script>

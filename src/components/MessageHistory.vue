@@ -13,23 +13,23 @@
     class="animate-pulse"
   />
 </template>
-<script>
-  import { defineComponent } from "vue";
-  import { useFocusLast } from "../composables/focus-last.js";
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useFocusLast } from "../composables/focus-last.js";
 
-  export default defineComponent({
-    emits: ["remove"],
-  });
+export default defineComponent({
+  emits: ["remove"],
+});
 </script>
 <script setup>
-  import { onMounted, watch } from "vue";
-  const props = defineProps({
-    history: { type: Array, default: () => [] },
-    pending: { type: Boolean, default: false },
-  });
+import { onMounted, watch } from "vue";
+const props = defineProps({
+  history: { type: Array, default: () => [] },
+  pending: { type: Boolean, default: false },
+});
 
-  const { focusLast } = useFocusLast();
+const { focusLast } = useFocusLast();
 
-  watch(props.history, focusLast);
-  onMounted(focusLast);
+watch(props.history, focusLast);
+onMounted(focusLast);
 </script>

@@ -27,31 +27,31 @@
   </Transition>
 </template>
 
-<script>
-  import { defineComponent } from "vue";
-  import { useChat } from "../composables/chat.js";
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useChat } from "../composables/chat.js";
 
-  import Welcome from "./Welcome.vue";
-  import MessageCard from "./MessageCard.vue";
-  import NewMessage from "./NewMessage.vue";
-  import MessageHistory from "./MessageHistory.vue";
+import Welcome from "./Welcome.vue";
+import MessageCard from "./MessageCard.vue";
+import NewMessage from "./NewMessage.vue";
+import MessageHistory from "./MessageHistory.vue";
 
-  export default defineComponent({});
+export default defineComponent({});
 </script>
 <script setup>
-  import { defineComponent, ref } from "vue";
+import { defineComponent, ref } from "vue";
 
-  const { history, pending, ask, aiName, removeAt } = useChat();
-  const settingsOpen = ref(false);
+const { history, pending, ask, aiName, removeAt } = useChat();
+const settingsOpen = ref(false);
 </script>
 <style>
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s ease;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
 
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-  }
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
