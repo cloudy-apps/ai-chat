@@ -13,7 +13,7 @@
     class="animate-pulse"
   />
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 import { useFocusLast } from "../composables/focus-last.js";
 import MessageCard from "./MessageCard.vue";
@@ -25,10 +25,20 @@ export default defineComponent({
 
 <script setup>
 import { onMounted, watch } from "vue";
-const props = defineProps({
-  history: { type: Array, default: () => [] },
-  pending: { type: Boolean, default: false },
-});
+import { Message } from "../composables/chat.js";
+
+interface PropsType {
+  history: Message[];
+  pending: boolean;
+}
+
+const props =
+  defineProps <
+  PropsType >
+  {
+    history: { type: Array, default: () => [] },
+    pending: { type: Boolean, default: false },
+  };
 
 const { focusLast } = useFocusLast();
 
