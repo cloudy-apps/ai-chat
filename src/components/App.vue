@@ -39,7 +39,7 @@ import MessageHistory from "./MessageHistory.vue";
 export default defineComponent({});
 </script>
 <script setup>
-import { defineComponent, ref } from "vue";
+import { ref } from "vue";
 
 const { history, pending, ask, aiName, removeAt } = useChat();
 const settingsOpen = ref(false);

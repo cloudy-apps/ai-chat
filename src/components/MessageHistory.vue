@@ -16,11 +16,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useFocusLast } from "../composables/focus-last.js";
+import MessageCard from "./MessageCard.vue";
 
 export default defineComponent({
   emits: ["remove"],
 });
 </script>
+
 <script setup>
 import { onMounted, watch } from "vue";
 const props = defineProps({
