@@ -32,7 +32,6 @@ import { defineComponent } from "vue";
 import { useChat } from "../composables/chat.js";
 
 import Welcome from "./Welcome.vue";
-import MessageCard from "./MessageCard.vue";
 import NewMessage from "./NewMessage.vue";
 import MessageHistory from "./MessageHistory.vue";
 

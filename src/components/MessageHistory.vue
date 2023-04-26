@@ -13,7 +13,7 @@
     class="animate-pulse"
   />
 </template>
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 import { useFocusLast } from "../composables/focus-last.js";
 import MessageCard from "./MessageCard.vue";
