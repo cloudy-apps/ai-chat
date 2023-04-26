@@ -32,13 +32,10 @@ interface PropsType {
   pending: boolean;
 }
 
-const props =
-  defineProps <
-  PropsType >
-  {
-    history: { type: Array, default: () => [] },
-    pending: { type: Boolean, default: false },
-  };
+const props = defineProps<PropsType >({
+  history: { type: Array, default: () => [] },
+  pending: { type: Boolean, default: false },
+});
 
 const { focusLast } = useFocusLast();
 
