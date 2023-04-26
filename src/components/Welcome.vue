@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="absolute z-2 bg-gray-100 h-screen w-screen flex items-center justify-center"
-  >
+  <div class="absolute z-2 bg-gray-100 h-screen w-screen flex items-center justify-center">
     <div class="text-center">
       <h1 class="text-2xl font-bold mb-6">Hello!</h1>
       <input
@@ -20,16 +18,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script>
+import { defineComponent } from 'vue';
 export default defineComponent({});
 </script>
 
 <script setup>
-import { ref, unref } from "vue";
-import { useChat } from "../composables/chat.js";
+import { ref, unref } from 'vue';
+import { useChat } from '../composables/chat';
 
-const name = ref("");
+const name = ref('');
 const { aiName } = useChat();
 
 function save() {

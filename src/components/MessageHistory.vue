@@ -1,38 +1,32 @@
 <template>
   <MessageCard
-    v-for="(message, index) in history"
+    v-for="(message, index) in props.history"
     :key="index"
     :message="message"
     @remove="$emit('remove', index)"
   />
   <MessageCard
-    v-if="pending"
+    v-if="props.pending"
     :id="-1"
     :removable="false"
     :message="{ role: 'assistant', content: '...' }"
     class="animate-pulse"
   />
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useFocusLast } from "../composables/focus-last.js";
-import MessageCard from "./MessageCard.vue";
+<script>
+import { defineComponent } from 'vue';
+import { useFocusLast } from '../composables/focus-last';
+import MessageCard from './MessageCard.vue';
 
 export default defineComponent({
-  emits: ["remove"],
+  emits: ['remove'],
 });
 </script>
 
 <script setup>
-import { onMounted, watch } from "vue";
-import { Message } from "../composables/chat.js";
+import { onMounted, watch } from 'vue';
 
-interface PropsType {
-  history: Message[];
-  pending: boolean;
-}
-
-const props = defineProps<PropsType >({
+const props = defineProps({
   history: { type: Array, default: () => [] },
   pending: { type: Boolean, default: false },
 });

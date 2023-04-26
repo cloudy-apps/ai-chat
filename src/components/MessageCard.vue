@@ -2,10 +2,8 @@
   <div
     :class="[
       isDivider && 'h-1 shadow mb-4 border border-gray-300',
-      isAssistant &&
-        'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-blue-100 ml-12',
-      isMe &&
-        'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
+      isAssistant && 'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-blue-100 ml-12',
+      isMe && 'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
     ]"
   >
     <template v-if="!isDivider">
@@ -13,11 +11,7 @@
         <button class="focus:outline-none" @click="renderMessage">
           <span class="material-icons focus:text-gray-600">visibility</span>
         </button>
-        <button
-          v-if="removable"
-          class="focus:outline-none"
-          @click="removeMessage"
-        >
+        <button v-if="removable" class="focus:outline-none" @click="removeMessage">
           <span class="material-icons focus:text-gray-600">close</span>
         </button>
       </div>
@@ -27,8 +21,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script>
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
@@ -39,34 +33,34 @@ export default defineComponent({
     message: {
       type: Object,
       required: false,
-      default: () => ({ role: "", content: "" }),
+      default: () => ({ role: '', content: '' }),
     },
   },
-  data: () => ({ htmlMessage: "" }),
+  data: () => ({ htmlMessage: '' }),
   computed: {
     isMe() {
-      return this.message.role === "user";
+      return this.message.role === 'user';
     },
     isDivider() {
-      return this.message.role === "divider";
+      return this.message.role === 'divider';
     },
     isAssistant() {
-      return this.message.role === "assistant";
+      return this.message.role === 'assistant';
     },
   },
   methods: {
     removeMessage() {
-      this.$emit("remove");
+      this.$emit('remove');
     },
     renderMessage() {
       if (this.htmlMessage) {
-        this.htmlMessage = "";
+        this.htmlMessage = '';
         return;
       }
 
-      fetch("https://markdown.jsfn.run/", {
-        mode: "cors",
-        method: "post",
+      fetch('https://markdown.jsfn.run/', {
+        mode: 'cors',
+        method: 'post',
         body: this.message.content,
       })
         .then((x) => x.text())
