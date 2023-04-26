@@ -11,7 +11,11 @@
         <button class="focus:outline-none" @click="renderMessage">
           <span class="material-icons focus:text-gray-600">visibility</span>
         </button>
-        <button v-if="removable" class="focus:outline-none" @click="removeMessage">
+        <button
+          v-if="removable"
+          class="focus:outline-none"
+          @click="removeMessage"
+        >
           <span class="material-icons focus:text-gray-600">close</span>
         </button>
       </div>
@@ -22,50 +26,50 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+  import { defineComponent } from "vue";
 
-export default defineComponent({
-  props: {
-    removable: {
-      type: Boolean,
-      default: true,
+  export default defineComponent({
+    props: {
+      removable: {
+        type: Boolean,
+        default: true,
+      },
+      message: {
+        type: Object,
+        required: false,
+        default: () => ({ role: "", content: "" }),
+      },
     },
-    message: {
-      type: Object,
-      required: false,
-      default: () => ({ role: "", content: "" }),
+    data: () => ({ htmlMessage: "" }),
+    computed: {
+      isMe() {
+        return this.message.role === "user";
+      },
+      isDivider() {
+        return this.message.role === "divider";
+      },
+      isAssistant() {
+        return this.message.role === "assistant";
+      },
     },
-  },
-  data: () => ({ htmlMessage: '' }),
-  computed: {
-    isMe() {
-      return this.message.role === "user";
-    },
-    isDivider() {
-      return this.message.role === "divider";
-    },
-    isAssistant() {
-      return this.message.role === "assistant";
-    },
-  },
-  methods: {
-    removeMessage() {
-      this.$emit("remove");
-    },
-    renderMessage() {
-      if (this.htmlMessage) {
-        this.htmlMessage = '';
-        return;
-      }
+    methods: {
+      removeMessage() {
+        this.$emit("remove");
+      },
+      renderMessage() {
+        if (this.htmlMessage) {
+          this.htmlMessage = "";
+          return;
+        }
 
-      fetch('https://markdown.jsfn.run/', {
-        mode: 'cors',
-        method: 'post',
-        body: this.message.content
-      })
-        .then(x => x.text())
-        .then(html => this.htmlMessage = html);
-    }
-  },
-});
+        fetch("https://markdown.jsfn.run/", {
+          mode: "cors",
+          method: "post",
+          body: this.message.content,
+        })
+          .then((x) => x.text())
+          .then((html) => (this.htmlMessage = html));
+      },
+    },
+  });
 </script>

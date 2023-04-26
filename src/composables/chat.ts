@@ -1,4 +1,4 @@
-import { ref, unref } from "vue";
+import { ref, watch, unref } from "vue";
 
 export interface Message {
   role: string;
@@ -14,6 +14,9 @@ function prompt(): Message[] {
   ];
 }
 
+const aiName = ref(localStorage.name);
+watch(aiName, (value) => (localStorage.name = value));
+
 export function useChat() {
   const history = ref(
     (localStorage.history
@@ -25,7 +28,7 @@ export function useChat() {
   async function fetchResults() {
     const messages = unref(history);
     const payload: any = { messages };
-    const dividerIndex = messages.findIndex(m => m.role === 'divider');
+    const dividerIndex = messages.findIndex((m) => m.role === "divider");
 
     if (dividerIndex !== -1) {
       payload.messages = messages.slice(dividerIndex + 1);
@@ -67,8 +70,8 @@ export function useChat() {
   }
 
   function addDivider() {
-    const newHistory = unref(history).filter(m => m.role !== 'divider');
-    newHistory.push({ role: 'divider', content: '' });
+    const newHistory = unref(history).filter((m) => m.role !== "divider");
+    newHistory.push({ role: "divider", content: "" });
 
     history.value = newHistory;
     saveHistory(newHistory);
@@ -77,7 +80,7 @@ export function useChat() {
   async function ask(message: string) {
     if (!message.trim() || unref(pending)) return;
 
-    if (message.trim() === 'add divider') {
+    if (message.trim().toLowerCase() === "add divider") {
       addDivider();
       return;
     }
@@ -91,5 +94,5 @@ export function useChat() {
     pending.value = false;
   }
 
-  return { history, pending, ask, removeAt };
+  return { history, aiName, pending, ask, removeAt };
 }
