@@ -41,6 +41,7 @@ export function useChat() {
     const options = {
       method: "post",
       mode: "cors",
+      credentials: 'include',
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
     };
