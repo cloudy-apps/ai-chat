@@ -38,6 +38,8 @@ export function useChat() {
       payload.model = localStorage.model;
     }
 
+    payload.bot = 'default';
+
     const options = {
       method: "post",
       mode: "cors",
