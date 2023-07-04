@@ -1,5 +1,5 @@
 <template>
-  <div v-if="auth" class="relative h-screen">
+  <div v-if="authenticated" class="relative h-screen">
     <div
       v-if="selectBot"
       class="absolute z-2 inset-2 bg-gray-100 w-screen h-screen p-4 flex flex-col rounded-lg shadow"
@@ -43,12 +43,14 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useChat } from "../composables/chat";
+import { useAuth } from "../composables/auth";
 import Welcome from "./Welcome.vue";
 import NewMessage from "./NewMessage.vue";
 import MessageHistory from "./MessageHistory.vue";
-import { ref } from "vue";
 
+const { authenticated } = useAuth();
 const { history, pending, bot, bots, ask, setBot, removeAt } = useChat();
 const selectBot = ref(false);
 </script>
