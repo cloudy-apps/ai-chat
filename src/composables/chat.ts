@@ -1,4 +1,5 @@
-import { ref, watch, unref } from "vue";
+import { ref, watch, unref, onMounted } from "vue";
+import { useEnv } from './env';
 
 export interface Message {
   role: string;
@@ -16,13 +17,23 @@ function prompt(): Message[] {
 
 export function useChat() {
   const bot = ref(localStorage.name);
+  const bots = ref([]);
   const pending = ref(false);
+  const { getEnv, ready } = useEnv();
 
   const history = ref(
     (localStorage.history
       ? JSON.parse(localStorage.history)
       : prompt()) as Message[]
   );
+
+  async function fetchBots() {
+    await ready;
+    const response = await fetch(new URL('/bots', getEnv('BOT_API')));
+    bots.value = await response.json();
+  }
+
+  onMounted(fetchBots);
 
   async function fetchResults() {
     const messages = unref(history);
@@ -49,7 +60,7 @@ export function useChat() {
       body: JSON.stringify(payload),
     };
 
-    const chat = await fetch("https://chat.homebots.io/chat", options as any);
+    const chat = await fetch(new URL('/chat', getEnv('BOT_API')), options as any);
     return await chat.json();
   }
 
@@ -120,5 +131,5 @@ export function useChat() {
     pending.value = false;
   }
 
-  return { history, bot, pending, ask, removeAt, setBot };
+  return { history, bot, bots, pending, ask, removeAt, setBot };
 }

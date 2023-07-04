@@ -1,18 +1,19 @@
 <template>
   <div v-if="auth" class="relative h-screen">
     <div
-      v-if="selectBots"
+      v-if="selectBot"
       class="absolute z-2 inset-2 bg-gray-100 w-screen h-screen p-4 flex flex-col rounded-lg shadow"
     >
-      <h2>Select a bot</h2>
+      <h2 class="text-md font-bold">Select a bot</h2>
       <div class="overflow-y-scroll flex-grow">
         <a
           href="#"
           class="block rounded shadow py-2 px-4"
-          v-for="bot in bots"
-          :key="bot.name"
-          @click="setBot(bot.name)"
-          >{{ bot.name }}</a
+          :class="item.name === bot && 'font-bold bg-gray-200'"
+          v-for="item in bots"
+          :key="item.name"
+          @click="setBot(item.name)"
+          >{{ item.name }}</a
         >
       </div>
     </div>
@@ -23,7 +24,7 @@
       >
         <h1 class="w-full">{{ bot }}</h1>
         <button
-          @click="selectBots = !selectBots"
+          @click="selectBot = true"
           class="text-indigo-900 font-bold w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 border border-gray-300 overflow-hidden"
         >
           <img src="/icon-72.png" alt="" />
@@ -48,6 +49,6 @@ import NewMessage from "./NewMessage.vue";
 import MessageHistory from "./MessageHistory.vue";
 import { ref } from "vue";
 
-const { history, pending, bot, ask, setBot, removeAt } = useChat();
-const selectBots = ref(false);
+const { history, pending, bot, bots, ask, setBot, removeAt } = useChat();
+const selectBot = ref(false);
 </script>
