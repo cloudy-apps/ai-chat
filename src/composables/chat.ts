@@ -1,5 +1,10 @@
 import { ref, watch, unref, onMounted } from "vue";
-import { useEnv } from './env';
+import { useEnv } from "./env";
+
+const cors: RequestInit = {
+  mode: "cors",
+  credentials: "include",
+};
 
 export interface Message {
   role: string;
@@ -29,11 +34,9 @@ export function useChat() {
 
   async function fetchBots() {
     await ready;
-    const response = await fetch(new URL('/bots', getEnv('BOT_API')));
+    const response = await fetch(new URL("/bots", getEnv("BOT_API")), cors);
     bots.value = await response.json();
   }
-
-  onMounted(fetchBots);
 
   async function fetchResults() {
     const messages = unref(history);
@@ -52,15 +55,14 @@ export function useChat() {
       payload.model = localStorage.model;
     }
 
-    const options = {
+    const options: RequestInit = {
+      ...cors,
       method: "post",
-      mode: "cors",
-      credentials: "include",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
     };
 
-    const chat = await fetch(new URL('/chat', getEnv('BOT_API')), options as any);
+    const chat = await fetch(new URL("/chat", getEnv("BOT_API")), options);
     return await chat.json();
   }
 
@@ -107,6 +109,8 @@ export function useChat() {
       resetChat();
     }
   );
+
+  onMounted(fetchBots);
 
   async function ask(message: string) {
     if (!message.trim() || unref(pending)) return;
