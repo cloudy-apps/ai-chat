@@ -2,7 +2,7 @@
   <div v-if="authenticated" class="relative h-screen">
     <div
       v-if="selectBot"
-      class="absolute z-2 inset-2 mx-8 my-4 bg-gray-100 p-4 flex flex-col rounded-lg shadow-2xl border border-gray-200"
+      class="absolute z-10 inset-2 mx-8 my-4 bg-gray-100 p-4 flex flex-col rounded-lg shadow-2xl border border-gray-200"
     >
       <h2 class="text-md font-bold mb-4 ml-4">Select a bot</h2>
       <div
