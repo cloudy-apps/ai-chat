@@ -2,17 +2,19 @@
   <div v-if="authenticated" class="relative h-screen">
     <div
       v-if="selectBot"
-      class="absolute z-2 inset-2 bg-gray-100 w-screen h-screen p-4 flex flex-col rounded-lg shadow"
+      class="absolute z-2 inset-2 mx-8 my-4 bg-gray-100 p-4 flex flex-col rounded-lg shadow-2xl border border-gray-200"
     >
-      <h2 class="text-md font-bold">Select a bot</h2>
-      <div class="overflow-y-scroll flex-grow">
+      <h2 class="text-md font-bold mb-4 ml-4">Select a bot</h2>
+      <div
+        class="overflow-y-scroll flex-grow rounded-lg border border-gray-200"
+      >
         <a
           href="#"
-          class="block rounded shadow py-2 px-4"
-          :class="item.name === bot && 'font-bold bg-gray-200'"
+          class="block py-2 px-4 shadow-sm"
+          :class="item.name === bot && 'font-bold bg-blue-400 text-white'"
           v-for="item in bots"
           :key="item.name"
-          @click="setBot(item.name)"
+          @click="onSelectBot(item.name)"
           >{{ item.name }}</a
         >
       </div>
@@ -53,4 +55,9 @@ import MessageHistory from "./MessageHistory.vue";
 const { authenticated } = useAuth();
 const { history, pending, bot, bots, ask, setBot, removeAt } = useChat();
 const selectBot = ref(false);
+
+function onSelectBot(name) {
+  setBot(item.name);
+  selectBot.value = false;
+}
 </script>
