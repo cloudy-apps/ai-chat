@@ -57,7 +57,7 @@ const { history, pending, bot, bots, ask, setBot, removeAt } = useChat();
 const selectBot = ref(false);
 
 function onSelectBot(name) {
-  setBot(item.name);
+  setBot(name);
   selectBot.value = false;
 }
 </script>
