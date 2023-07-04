@@ -14,20 +14,23 @@ function prompt(): Message[] {
   ];
 }
 
-const aiName = ref(localStorage.name);
-watch(aiName, (value) => (localStorage.name = value));
-
 export function useChat() {
+  const bot = ref(localStorage.name);
+  const pending = ref(false);
+
   const history = ref(
     (localStorage.history
       ? JSON.parse(localStorage.history)
       : prompt()) as Message[]
   );
-  const pending = ref(false);
 
   async function fetchResults() {
     const messages = unref(history);
-    const payload: any = { messages };
+    const payload: any = {
+      bot: bot.value,
+      messages,
+    };
+
     const dividerIndex = messages.findIndex((m) => m.role === "divider");
 
     if (dividerIndex !== -1) {
@@ -38,19 +41,16 @@ export function useChat() {
       payload.model = localStorage.model;
     }
 
-    payload.bot = 'default';
-
     const options = {
       method: "post",
       mode: "cors",
-      credentials: 'include',
+      credentials: "include",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
     };
 
-    return fetch("https://chat.homebots.io/chat", options as any).then((x) =>
-      x.json()
-    );
+    const chat = await fetch("https://chat.homebots.io/chat", options as any);
+    return await chat.json();
   }
 
   function saveHistory(list: Message[]) {
@@ -80,11 +80,34 @@ export function useChat() {
     saveHistory(newHistory);
   }
 
+  function resetChat() {
+    history.value = [];
+    saveHistory([]);
+  }
+
+  function setBot(name: string) {
+    bot.value = name;
+  }
+
+  watch(
+    () => bot.value,
+    (value) => {
+      localStorage.name = value;
+      resetChat();
+    }
+  );
+
   async function ask(message: string) {
     if (!message.trim() || unref(pending)) return;
 
-    if (message.trim().toLowerCase() === "add divider") {
+    const m = message.trim().toLowerCase();
+    if (m === "add divider") {
       addDivider();
+      return;
+    }
+
+    if (m === "reset") {
+      resetChat();
       return;
     }
 
@@ -97,5 +120,5 @@ export function useChat() {
     pending.value = false;
   }
 
-  return { history, aiName, pending, ask, removeAt };
+  return { history, bot, pending, ask, removeAt, setBot };
 }
