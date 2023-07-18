@@ -23,6 +23,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import toHTML from 'https://markdown.jsfn.run/index.mjs';
 
 export default defineComponent({
   props: {
@@ -52,19 +53,13 @@ export default defineComponent({
     removeMessage() {
       this.$emit('remove');
     },
-    renderMessage() {
+    async renderMessage() {
       if (this.htmlMessage) {
         this.htmlMessage = '';
         return;
       }
 
-      fetch('https://markdown.jsfn.run/', {
-        mode: 'cors',
-        method: 'post',
-        body: this.message.content,
-      })
-        .then((x) => x.text())
-        .then((html) => (this.htmlMessage = html));
+      this.htmlMessage = await toHTML(this.message.content);
     },
   },
 });
