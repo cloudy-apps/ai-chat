@@ -116,12 +116,12 @@ export function useChat() {
     if (!message.trim() || unref(pending)) return;
 
     const m = message.trim().toLowerCase();
-    if (m === "add divider" || "new topic") {
+    if (m === "add divider" || m === "new topic") {
       addDivider();
       return;
     }
 
-    if (m === "reset" || "new chat") {
+    if (m === "reset" || m === "new chat") {
       resetChat();
       return;
     }

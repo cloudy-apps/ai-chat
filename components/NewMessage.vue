@@ -5,7 +5,7 @@
   >
     <textarea
       v-model="message"
-      class="flex-grow resize-none rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+      class="flex-grow resize-none rounded p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type your message"
       :rows="inputRows"
     ></textarea>

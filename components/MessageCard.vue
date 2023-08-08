@@ -74,7 +74,6 @@ onMounted(() => {
 .html-message pre {
   background-color:  #eee;
   padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
   margin: 0.75rem -1rem;
   overflow-x: scroll;
 }
