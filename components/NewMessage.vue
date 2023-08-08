@@ -1,5 +1,5 @@
 <template>
-  <form class="flex items-center p-4" @submit.prevent="sendMessage">
+  <form class="flex items-center p-4 border-t border-green-800" @submit.prevent="sendMessage">
     <textarea
       v-model="message"
       class="flex-grow mr-4 resize-none rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
