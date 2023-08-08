@@ -62,7 +62,7 @@ async function renderMessage() {
 }
 
 onMounted(() => {
-  if (props.message.includes("```")) {
+  if (props.message?.content.includes("```")) {
     renderMessage();
   }
 });
