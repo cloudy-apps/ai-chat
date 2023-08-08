@@ -62,12 +62,17 @@ async function renderMessage() {
   htmlMessage.value = await toHTML(props.message.content);
 }
 
-function isRichContent() {
-  return content.includes("```") || content.includes("`") || content.includes('https://')
+function isRichContent(content) {
+  return (
+    content.includes("```") ||
+    content.includes("`") ||
+    content.includes("https://")
+  );
 }
 
 onMounted(() => {
   const content = props.message?.content || "";
+
   if (isRichContent(content)) {
     renderMessage();
   }
