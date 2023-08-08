@@ -19,12 +19,18 @@
     <button
       :disabled="pending"
       class="bg-primary leading-4 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-      @click="inProgress ? abort() : start()"
-      :class="[inProgress && 'animate-pulse bg-red-500']"
+      @click="inProgress ? stop() : start()"
     >
-      <span class="material-icons">{{
+      <span class="material-icons" :class="[inProgress && 'animate-pulse']">{{
         inProgress ? "graphic_eq" : "mic"
       }}</span>
+    </button>
+    <button
+      v-if="inProgress"
+      class="bg-gray-200 leading-4 text-gray-800 font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      @click="abort()"
+    >
+      <span class="material-icons">clear</span>
     </button>
   </form>
 </template>
@@ -40,7 +46,7 @@ defineProps({
 const emit = defineEmits(["send"]);
 
 const message = ref("");
-const { output, inProgress, start, abort } = useSpeech();
+const { output, inProgress, start, stop, abort } = useSpeech();
 
 const inputRows = computed(() => {
   const lines = message.value.split("\n").length;
@@ -56,5 +62,8 @@ function sendMessage() {
   }
 }
 
-watch(output, (value) => (message.value = value));
+watch(output, (value) => {
+  message.value = value;
+  sendMessage();
+});
 </script>
