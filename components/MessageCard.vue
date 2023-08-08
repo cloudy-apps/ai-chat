@@ -72,7 +72,7 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
+<style>
 .html-message pre {
   background-color: white;
   padding: 0.5rem;
