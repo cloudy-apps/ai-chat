@@ -43,13 +43,15 @@ const props = defineProps({
   },
 });
 
+const emits = defineEmits(['remove'])
+
 const htmlMessage = ref("");
 const isMe = computed(() => props.message.role === "user");
 const isDivider = computed(() => props.message.role === "divider");
 const isAssistant = computed(() => props.message.role === "assistant");
 
 function removeMessage() {
-  this.$emit("remove");
+  emit("remove");
 }
 
 async function renderMessage() {
@@ -58,7 +60,7 @@ async function renderMessage() {
     return;
   }
 
-  htmlMessage.value = await toHTML(this.message.content);
+  htmlMessage.value = await toHTML(props.message.content);
 }
 
 onMounted(() => {
