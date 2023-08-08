@@ -5,7 +5,6 @@ jobs:
   build:
     uses: cloud-cli/workflows/.github/workflows/docker-ghcr-build.yml@main
     with:
-      name: cloud-cli/app-chat
+      name: cloudy-apps/ai-chat
       baseImage: cloud-cli/node:latest
-      defaultBranch: main
-      type: node
+      type: vite
