@@ -21,9 +21,7 @@
     </div>
 
     <div class="flex flex-col h-screen">
-      <header
-        class="text-white text-2xl font-bold p-4 flex items-center"
-      >
+      <header class="text-white text-2xl font-bold p-4 flex items-center">
         <h1 class="w-full">{{ bot }}</h1>
         <button
           @click="selectBot = true"
@@ -32,7 +30,9 @@
           <span class="material-icons">swap_horiz</span>
         </button>
       </header>
-      <main class="flex flex-col flex-grow p-4 overflow-y-auto">
+      <main
+        class="flex flex-col flex-grow p-4 overflow-y-auto container mx-auto"
+      >
         <MessageHistory
           :history="history"
           :pending="pending"
