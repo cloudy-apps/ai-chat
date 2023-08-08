@@ -22,10 +22,12 @@ export function useSpeech() {
   }
 
   function stop() {
+    inProgress.value = false;
     recognition.stop();
   }
 
   function abort() {
+    inProgress.value = false;
     recognition.abort();
   }
 

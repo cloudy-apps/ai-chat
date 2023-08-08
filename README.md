@@ -1,3 +1,3 @@
-# app-template
+# AI chat
 
-Node.js app template
+An AI chat application built with web technologies and OpenAI

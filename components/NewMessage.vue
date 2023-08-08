@@ -1,11 +1,8 @@
 <template>
-  <form
-    class="flex items-center p-4 bg-white shadow-md border border-gray-300"
-    @submit.prevent="sendMessage"
-  >
+  <form class="flex items-center p-4" @submit.prevent="sendMessage">
     <textarea
       v-model="message"
-      class="flex-grow mr-4 resize-none border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+      class="flex-grow mr-4 resize-none rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type your message"
       :rows="inputRows"
     ></textarea>
@@ -45,9 +42,10 @@ const emit = defineEmits(["send"]);
 const message = ref("");
 const { output, inProgress, start, abort } = useSpeech();
 
-const inputRows = computed(() =>
-  Math.min(10, message.value.split("\n").length + 1)
-);
+const inputRows = computed(() => {
+  const lines = message.value.split("\n").length;
+  return lines > 1 ? Math.min(10, lines + 1) : 1;
+});
 
 function sendMessage() {
   const content = message.value.trim();
