@@ -4,17 +4,16 @@
   "description": "An AI chat application built with web technologies and OpenAI",
   "icons": [
     {
-      "src": "/icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
       "src": "/icon.svg",
       "sizes": "512x512",
       "type": "image/svg+xml"
+    },{
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#1f776f",
   "background_color": "#1f776f"
