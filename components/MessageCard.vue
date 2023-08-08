@@ -1,11 +1,11 @@
 <template>
   <div
     :class="[
-      isDivider && 'h-1 shadow mb-4 border border-gray-300',
-      isAssistant &&
-        'rounded shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-green-100 md:ml-12',
+      isDivider && 'h-1 shadow border border-gray-300',
       isMe &&
-        'rounded shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
+        'rounded shadow-md py-6 px-4 text-gray-800 relative bg-green-100 md:ml-12',
+      isAssistant &&
+        'rounded shadow-md py-6 px-4 text-gray-800 relative bg-white',
     ]"
   >
     <template v-if="!isDivider">
@@ -63,7 +63,7 @@ async function renderMessage() {
 }
 
 onMounted(() => {
-  const content = props.message?.content || '';
+  const content = props.message?.content || "";
   if (content.includes("```") || content.includes("`")) {
     renderMessage();
   }
