@@ -1,8 +1,11 @@
 <template>
-  <form class="flex items-center p-4 border-t border-green-800" @submit.prevent="sendMessage">
+  <form
+    class="flex items-center p-4 gap-2 border-t border-green-800"
+    @submit.prevent="sendMessage"
+  >
     <textarea
       v-model="message"
-      class="flex-grow mr-4 resize-none rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+      class="flex-grow resize-none rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type your message"
       :rows="inputRows"
     ></textarea>
@@ -10,7 +13,7 @@
     <button
       :disabled="pending"
       type="submit"
-      class="bg-primary leading-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-primary leading-4 text-white font-bold py-2 px-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
       <span class="material-icons" :class="pending && 'animate-spin'">{{
         pending ? "refresh" : "send"
@@ -18,7 +21,7 @@
     </button>
     <button
       :disabled="pending"
-      class="bg-primary leading-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-primary leading-4 text-white font-bold py-2 px-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       @click="inProgress ? stop() : start()"
     >
       <span class="material-icons" :class="[inProgress && 'animate-pulse']">{{

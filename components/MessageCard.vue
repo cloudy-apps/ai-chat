@@ -45,7 +45,7 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(["remove"]);
+const emit = defineEmits(["remove"]);
 
 const htmlMessage = ref("");
 const isMe = computed(() => props.message.role === "user");
