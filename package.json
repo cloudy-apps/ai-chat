@@ -2,7 +2,6 @@
   "name": "app-chat",
   "private": true,
   "version": "0.0.0",
-  "main": "./index.js",
   "scripts": {
     "ci": "npm i && npm run check && npm run build",
     "dev": "vite --host 0.0.0.0",
