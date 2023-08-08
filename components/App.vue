@@ -22,12 +22,8 @@
 
     <div class="flex flex-col h-screen">
       <header class="text-white text-2xl font-bold p-4 flex items-center">
-        <h1 class="w-full">{{ bot }}</h1>
-        <button
-          @click="selectBot = true"
-          class="text-primary font-bold w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 border border-gray-300 overflow-hidden"
-        >
-          <span class="material-icons">swap_horiz</span>
+        <button @click="selectBot = true" class="w-full">
+          {{ bot || ">> Select a bot <<" }}
         </button>
       </header>
       <main
