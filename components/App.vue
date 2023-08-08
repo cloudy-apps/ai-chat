@@ -27,7 +27,7 @@
         <button @click="selectBot = true" class="flex-grow">
           {{ bot || ">> Select a bot <<" }}
         </button>
-        <button @click="enableAudio = !enableAudio" class="px-4">
+        <button @click="enableAudio = !enableAudio">
           <span class="material-icons">{{
             enableAudio ? "volume_up" : "volume_off"
           }}</span>

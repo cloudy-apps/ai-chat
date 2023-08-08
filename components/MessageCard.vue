@@ -59,6 +59,5 @@ function removeMessage() {
 .html-message a[href] {
   color:  #2196F3;
   text-decoration: underline;
-  padding: 0.5rem 1rem;
 }
 </style>
