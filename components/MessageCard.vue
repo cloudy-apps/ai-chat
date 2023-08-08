@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, computed, ref } from "vue";
 import toHTML from "https://markdown.jsfn.run/index.mjs";
 
 const props = defineProps({
