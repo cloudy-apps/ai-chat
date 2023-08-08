@@ -63,7 +63,7 @@ async function renderMessage() {
 }
 
 function isRichContent() {
-  content.includes("```") || content.includes("`") || content.includes('https://')
+  return content.includes("```") || content.includes("`") || content.includes('https://')
 }
 
 onMounted(() => {
