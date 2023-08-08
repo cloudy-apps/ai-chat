@@ -1,6 +1,6 @@
 <template>
   <form
-    class="flex items-center p-4 gap-2 border-t border-green-800"
+    class="flex items-center p-4 gap-2 border-t border-green-800 bg-semi-white"
     @submit.prevent="sendMessage"
   >
     <textarea
@@ -70,3 +70,9 @@ watch(output, (value) => {
   sendMessage();
 });
 </script>
+
+<style>
+.bg-semi-white {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+</style>

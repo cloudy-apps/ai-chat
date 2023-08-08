@@ -3,22 +3,19 @@
     :class="[
       isDivider && 'h-1 shadow mb-4 border border-gray-300',
       isAssistant &&
-        'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-green-100 ml-12',
+        'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-green-100 md:ml-12',
       isMe &&
         'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
     ]"
   >
     <template v-if="!isDivider">
-      <div class="flex absolute top-0 right-0 mr-2 mt-2 text-gray-500">
-        <button class="focus:outline-none" @click="renderMessage">
-          <span class="material-icons focus:text-gray-600">visibility</span>
-        </button>
+      <div class="absolute top-0 right-0 mr-2 mt-2 text-gray-400">
         <button
           v-if="removable"
-          class="focus:outline-none"
+          class="focus:outline-none focus:text-gray-600/"
           @click="removeMessage"
         >
-          <span class="material-icons focus:text-gray-600">close</span>
+          <span class="material-icons">close</span>
         </button>
       </div>
       <div v-if="!htmlMessage" class="text-sm">
@@ -66,7 +63,8 @@ async function renderMessage() {
 }
 
 onMounted(() => {
-  if (props.message?.content.includes("```")) {
+  const content = props.message?.content || '';
+  if (content.includes("```") || content.includes("`")) {
     renderMessage();
   }
 });
