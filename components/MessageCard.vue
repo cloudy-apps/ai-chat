@@ -3,13 +3,13 @@
     :class="[
       isDivider && 'h-1 shadow mb-4 border border-gray-300',
       isAssistant &&
-        'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-green-100 md:ml-12',
+        'rounded shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-green-100 md:ml-12',
       isMe &&
-        'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
+        'rounded shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
     ]"
   >
     <template v-if="!isDivider">
-      <div class="absolute top-0 right-0 mr-2 mt-2 text-gray-400">
+      <div class="absolute top-0 right-0 mr-1 mt-1 text-gray-400">
         <button
           v-if="removable"
           class="focus:outline-none focus:text-gray-600/"
