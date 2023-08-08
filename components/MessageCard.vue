@@ -21,8 +21,10 @@
           <span class="material-icons focus:text-gray-600">close</span>
         </button>
       </div>
-      <div v-if="!htmlMessage" class="text-sm">{{ message.content }}</div>
-      <div v-else v-html="htmlMessage" class="whitespace-pre-wrap"></div>
+      <div v-if="!htmlMessage" class="text-sm">
+        {{ message.content }}
+      </div>
+      <div v-else v-html="htmlMessage" class="text-sm html-message"></div>
     </template>
   </div>
 </template>
@@ -43,7 +45,7 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(['remove'])
+const emits = defineEmits(["remove"]);
 
 const htmlMessage = ref("");
 const isMe = computed(() => props.message.role === "user");
@@ -69,3 +71,13 @@ onMounted(() => {
   }
 });
 </script>
+
+<style scoped>
+.html-message pre {
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 0.5rem 0;
+  overflow-x: scroll;
+}
+</style>
