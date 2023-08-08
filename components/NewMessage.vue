@@ -10,7 +10,7 @@
     <button
       :disabled="pending"
       type="submit"
-      class="bg-primary leading-4 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-primary leading-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
       <span class="material-icons" :class="pending && 'animate-spin'">{{
         pending ? "refresh" : "send"
@@ -18,7 +18,7 @@
     </button>
     <button
       :disabled="pending"
-      class="bg-primary leading-4 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-primary leading-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       @click="inProgress ? stop() : start()"
     >
       <span class="material-icons" :class="[inProgress && 'animate-pulse']">{{
@@ -27,7 +27,7 @@
     </button>
     <button
       v-if="inProgress"
-      class="bg-gray-200 leading-4 text-gray-800 font-bold py-2 px-4 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-gray-200 leading-4 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       @click="abort()"
     >
       <span class="material-icons">clear</span>

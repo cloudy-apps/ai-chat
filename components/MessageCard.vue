@@ -2,8 +2,10 @@
   <div
     :class="[
       isDivider && 'h-1 shadow mb-4 border border-gray-300',
-      isAssistant && 'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-green-100 ml-12',
-      isMe && 'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
+      isAssistant &&
+        'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-green-100 ml-12',
+      isMe &&
+        'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
     ]"
   >
     <template v-if="!isDivider">
@@ -11,7 +13,11 @@
         <button class="focus:outline-none" @click="renderMessage">
           <span class="material-icons focus:text-gray-600">visibility</span>
         </button>
-        <button v-if="removable" class="focus:outline-none" @click="removeMessage">
+        <button
+          v-if="removable"
+          class="focus:outline-none"
+          @click="removeMessage"
+        >
           <span class="material-icons focus:text-gray-600">close</span>
         </button>
       </div>
@@ -22,45 +28,42 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import toHTML from 'https://markdown.jsfn.run/index.mjs';
+import { onMounted, ref } from "vue";
+import toHTML from "https://markdown.jsfn.run/index.mjs";
 
-export default defineComponent({
-  props: {
-    removable: {
-      type: Boolean,
-      default: true,
-    },
-    message: {
-      type: Object,
-      required: false,
-      default: () => ({ role: '', content: '' }),
-    },
+const props = defineProps({
+  removable: {
+    type: Boolean,
+    default: true,
   },
-  data: () => ({ htmlMessage: '' }),
-  computed: {
-    isMe() {
-      return this.message.role === 'user';
-    },
-    isDivider() {
-      return this.message.role === 'divider';
-    },
-    isAssistant() {
-      return this.message.role === 'assistant';
-    },
+  message: {
+    type: Object,
+    required: false,
+    default: () => ({ role: "", content: "" }),
   },
-  methods: {
-    removeMessage() {
-      this.$emit('remove');
-    },
-    async renderMessage() {
-      if (this.htmlMessage) {
-        this.htmlMessage = '';
-        return;
-      }
+});
 
-      this.htmlMessage = await toHTML(this.message.content);
-    },
-  },
+const htmlMessage = ref("");
+const isMe = computed(() => props.message.role === "user");
+const isDivider = computed(() => props.message.role === "divider");
+const isAssistant = computed(() => props.message.role === "assistant");
+
+function removeMessage() {
+  this.$emit("remove");
+}
+
+async function renderMessage() {
+  if (htmlMessage.value) {
+    htmlMessage.value = "";
+    return;
+  }
+
+  htmlMessage.value = await toHTML(this.message.content);
+}
+
+onMounted(() => {
+  if (props.message.includes("```")) {
+    renderMessage();
+  }
 });
 </script>
