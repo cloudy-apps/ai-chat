@@ -2,7 +2,7 @@
   <div
     :class="[
       isDivider && 'h-1 shadow mb-4 border border-gray-300',
-      isAssistant && 'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-blue-100 ml-12',
+      isAssistant && 'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-green-100 ml-12',
       isMe && 'rounded-lg shadow-md py-6 px-4 text-gray-800 mb-4 relative bg-white',
     ]"
   >

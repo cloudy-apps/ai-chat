@@ -11,7 +11,7 @@
         <a
           href="#"
           class="block py-2 px-4 shadow-sm"
-          :class="item.name === bot && 'font-bold bg-blue-400 text-white'"
+          :class="item.name === bot && 'font-bold bg-primary text-white'"
           v-for="item in bots"
           :key="item.name"
           @click="onSelectBot(item.name)"
