@@ -1,5 +1,6 @@
 import { ref, watch, unref, onMounted } from "vue";
 import { useEnv } from "./env";
+import toHTML from "https://markdown.jsfn.run/index.mjs";
 
 const cors: RequestInit = {
   mode: "cors",
@@ -24,6 +25,7 @@ export function useChat() {
   const bot = ref(localStorage.name);
   const bots = ref([]);
   const pending = ref(false);
+  const enableAudio = ref(false);
   const { getEnv, ready } = useEnv();
 
   const history = ref(
@@ -38,7 +40,7 @@ export function useChat() {
     bots.value = await response.json();
   }
 
-  async function fetchResults() {
+  async function fetchResults(): Promise<Message> {
     const messages = unref(history);
     const payload: any = {
       bot: bot.value,
@@ -131,9 +133,27 @@ export function useChat() {
 
     pending.value = true;
     const response = await fetchResults();
+    const responseText = response.content;
+
+    if (isRichContent(responseText)) {
+      response.content = await toHTML(responseText);
+    }
+
     append(response);
     pending.value = false;
+
+    if (enableAudio.value && window.speechSynthesis) {
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(responseText));
+    }
   }
 
-  return { history, bot, bots, pending, ask, removeAt, setBot };
+  function isRichContent(content) {
+    return (
+      content.includes("```") ||
+      content.includes("`") ||
+      content.includes("https://")
+    );
+  }
+
+  return { history, bot, bots, pending, enableAudio, ask, removeAt, setBot };
 }

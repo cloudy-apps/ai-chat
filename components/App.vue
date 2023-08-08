@@ -21,9 +21,16 @@
     </div>
 
     <div class="flex flex-col h-screen">
-      <header class="text-white text-2xl font-bold p-4 flex items-center shadow">
-        <button @click="selectBot = true" class="w-full">
+      <header
+        class="text-white text-2xl font-bold p-4 flex items-center shadow"
+      >
+        <button @click="selectBot = true" class="flex-grow">
           {{ bot || ">> Select a bot <<" }}
+        </button>
+        <button @click="enableAudio = !enableAudio" class="px-4">
+          <span class="material-icons">{{
+            enableAudio ? "volume_up" : "volume_off"
+          }}</span>
         </button>
       </header>
       <main
@@ -44,12 +51,12 @@
 import { ref } from "vue";
 import { useChat } from "../composables/chat";
 import { useAuth } from "../composables/auth";
-import Welcome from "./Welcome.vue";
 import NewMessage from "./NewMessage.vue";
 import MessageHistory from "./MessageHistory.vue";
 
 const { authenticated } = useAuth();
-const { history, pending, bot, bots, ask, setBot, removeAt } = useChat();
+const { history, pending, enableAudio, bot, bots, ask, setBot, removeAt } =
+  useChat();
 const selectBot = ref(false);
 
 function onSelectBot(name) {

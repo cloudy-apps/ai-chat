@@ -18,17 +18,13 @@
           <span class="material-icons">close</span>
         </button>
       </div>
-      <div v-if="!htmlMessage" class="text-sm">
-        {{ message.content }}
-      </div>
-      <div v-else v-html="htmlMessage" class="text-sm html-message"></div>
+      <div v-html="message.content" class="text-sm html-message"></div>
     </template>
   </div>
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from "vue";
-import toHTML from "https://markdown.jsfn.run/index.mjs";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   removable: {
@@ -44,7 +40,6 @@ const props = defineProps({
 
 const emit = defineEmits(["remove"]);
 
-const htmlMessage = ref("");
 const isMe = computed(() => props.message.role === "user");
 const isDivider = computed(() => props.message.role === "divider");
 const isAssistant = computed(() => props.message.role === "assistant");
@@ -52,31 +47,6 @@ const isAssistant = computed(() => props.message.role === "assistant");
 function removeMessage() {
   emit("remove");
 }
-
-async function renderMessage() {
-  if (htmlMessage.value) {
-    htmlMessage.value = "";
-    return;
-  }
-
-  htmlMessage.value = await toHTML(props.message.content);
-}
-
-function isRichContent(content) {
-  return (
-    content.includes("```") ||
-    content.includes("`") ||
-    content.includes("https://")
-  );
-}
-
-onMounted(() => {
-  const content = props.message?.content || "";
-
-  if (isRichContent(content)) {
-    renderMessage();
-  }
-});
 </script>
 
 <style>
