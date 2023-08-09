@@ -5,6 +5,7 @@
   >
     <textarea
       v-model="message"
+      v-if="!enableAudio"
       class="flex-grow resize-none rounded p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type your message"
       :rows="inputRows"
@@ -74,9 +75,3 @@ watch(output, (value) => {
   sendMessage();
 });
 </script>
-
-<style>
-.bg-semi-white {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-</style>
