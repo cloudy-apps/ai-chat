@@ -5,7 +5,7 @@
   >
     <textarea
       v-model="message"
-      v-if="!isAudioEnabled"
+      v-if="!isAudioEnabled()"
       class="flex-grow resize-none rounded p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type in your question..."
       :rows="inputRows"
@@ -13,7 +13,7 @@
 
     <button
       :disabled="pending"
-      v-if="!isAudioEnabled"
+      v-if="!isAudioEnabled()"
       type="submit"
       class="bg-primary text-white leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
@@ -23,7 +23,7 @@
     </button>
     <button
       :disabled="pending"
-      v-if="isAudioEnabled"
+      v-if="isAudioEnabled()"
       class="bg-primary text-white leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mx-auto"
       @click="inProgress ? stop() : start()"
     >
