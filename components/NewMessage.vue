@@ -7,7 +7,7 @@
       v-model="message"
       v-if="!enableAudio"
       class="flex-grow resize-none rounded p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-      placeholder="Type your message"
+      placeholder="Type in your question..."
       :rows="inputRows"
     ></textarea>
 
@@ -24,7 +24,7 @@
     <button
       :disabled="pending"
       v-if="enableAudio"
-      class="bg-primary text-white leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-primary text-white leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mx-auto"
       @click="inProgress ? stop() : start()"
     >
       <span class="material-icons" :class="[inProgress && 'animate-pulse']">{{
