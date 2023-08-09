@@ -1,7 +1,7 @@
 <template>
   <form
     class="flex items-center p-4 gap-2 border-t border-green-800 bg-semi-white"
-    @submit.prevent="sendMessage"
+    @submit.prevent="sendMessage()"
   >
     <textarea
       v-model="message"
@@ -12,8 +12,9 @@
 
     <button
       :disabled="pending"
+      v-if="!enableAudio"
       type="submit"
-      class="bg-primary leading-4 text-white font-bold py-2 px-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-primary text-white leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
       <span class="material-icons" :class="pending && 'animate-spin'">{{
         pending ? "refresh" : "send"
@@ -21,16 +22,17 @@
     </button>
     <button
       :disabled="pending"
-      class="bg-primary leading-4 text-white font-bold py-2 px-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      v-if="enableAudio"
+      class="bg-primary text-white leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       @click="inProgress ? stop() : start()"
     >
       <span class="material-icons" :class="[inProgress && 'animate-pulse']">{{
-        inProgress ? "graphic_eq" : "mic"
+        inProgress ? "record_voice_over" : "mic"
       }}</span>
     </button>
     <button
       v-if="inProgress"
-      class="bg-gray-200 leading-4 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-gray-200 text-gray-800 leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       @click="abort()"
     >
       <span class="material-icons">clear</span>
@@ -41,6 +43,7 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useSpeech } from "../composables/speech";
+import { useChat, useSpeech } from "../composables/chat";
 
 defineProps({
   pending: { type: Boolean, default: false },
@@ -49,6 +52,7 @@ defineProps({
 const emit = defineEmits(["send"]);
 
 const message = ref("");
+const { enableAudio } = useChat();
 const { output, inProgress, start, stop, abort } = useSpeech();
 
 const inputRows = computed(() => {
