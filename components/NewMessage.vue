@@ -43,7 +43,7 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useSpeech } from "../composables/speech";
-import { useChat, useSpeech } from "../composables/chat";
+import { useChat } from "../composables/chat";
 
 defineProps({
   pending: { type: Boolean, default: false },
