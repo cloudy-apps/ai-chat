@@ -7,6 +7,7 @@
       isAssistant &&
         'rounded shadow-md py-6 px-4 text-gray-800 relative bg-white',
     ]"
+    @click="onMessageClick"
   >
     <template v-if="!isDivider">
       <div class="absolute top-0 right-0 mr-1 mt-1 text-gray-400">
@@ -23,7 +24,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue";
 
 const props = defineProps({
@@ -46,6 +47,17 @@ const isAssistant = computed(() => props.message.role === "assistant");
 
 function removeMessage() {
   emit("remove");
+}
+
+function onMessageClick(event: MouseEvent) {
+  const src = event.target as any;
+  if (src.nodeName === "A") {
+    const href = (src as HTMLAnchorElement).href?.toString() ?? "";
+    if (href.startsWith("http:") || href.startsWith("https:")) {
+      event.preventDefault();
+      window.open(href, "_blank");
+    }
+  }
 }
 </script>
 
