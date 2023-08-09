@@ -1,5 +1,6 @@
 import { ref, watch, unref, onMounted } from "vue";
 import { useEnv } from "./env";
+import { useSpeech } from "./speech";
 import toHTML from "https://markdown.jsfn.run/index.mjs";
 
 const cors: RequestInit = {
@@ -22,10 +23,10 @@ function prompt(): Message[] {
 }
 
 const pending = ref(false);
-const enableAudio = ref(false);
 
 export function useChat() {
   const { getEnv } = useEnv();
+  const { speak } = useSpeech();
   const bot = ref(localStorage.name);
   const bots = ref([]);
 
@@ -142,9 +143,7 @@ export function useChat() {
     append(response);
     pending.value = false;
 
-    if (enableAudio.value && window.speechSynthesis) {
-      window.speechSynthesis.speak(new SpeechSynthesisUtterance(responseText));
-    }
+    speak(responseText);
   }
 
   function isRichContent(content) {
@@ -155,5 +154,5 @@ export function useChat() {
     );
   }
 
-  return { history, bot, bots, pending, enableAudio, ask, removeAt, setBot };
+  return { history, bot, bots, pending, ask, removeAt, setBot };
 }

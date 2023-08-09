@@ -27,9 +27,9 @@
         <button @click="selectBot = true" class="flex-grow">
           {{ bot || ">> Select a bot <<" }}
         </button>
-        <button @click="enableAudio = !enableAudio">
+        <button @click="toggleAudio" v-if="isAudioSupported()">
           <span class="material-icons">{{
-            enableAudio ? "volume_up" : "volume_off"
+            isAudioEnabled() ? "volume_up" : "volume_off"
           }}</span>
         </button>
       </header>
@@ -51,12 +51,14 @@
 import { ref } from "vue";
 import { useChat } from "../composables/chat";
 import { useAuth } from "../composables/auth";
+import { useSpeech } from "../composables/speech";
 import NewMessage from "./NewMessage.vue";
 import MessageHistory from "./MessageHistory.vue";
 
 const { authenticated } = useAuth();
-const { history, pending, enableAudio, bot, bots, ask, setBot, removeAt } =
-  useChat();
+const { history, pending, bot, bots, ask, setBot, removeAt } = useChat();
+
+const { toggleAudio, isAudioEnabled, isAudioSupported } = useSpeech();
 const selectBot = ref(false);
 
 function onSelectBot(name) {

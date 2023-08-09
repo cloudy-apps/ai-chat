@@ -5,7 +5,7 @@
   >
     <textarea
       v-model="message"
-      v-if="!enableAudio"
+      v-if="!isAudioEnabled"
       class="flex-grow resize-none rounded p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type in your question..."
       :rows="inputRows"
@@ -13,7 +13,7 @@
 
     <button
       :disabled="pending"
-      v-if="!enableAudio"
+      v-if="!isAudioEnabled"
       type="submit"
       class="bg-primary text-white leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
@@ -23,7 +23,7 @@
     </button>
     <button
       :disabled="pending"
-      v-if="enableAudio"
+      v-if="isAudioEnabled"
       class="bg-primary text-white leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mx-auto"
       @click="inProgress ? stop() : start()"
     >
@@ -33,7 +33,7 @@
     </button>
     <button
       v-if="inProgress"
-      class="bg-gray-200 text-gray-800 leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      class="bg-semi-white text-gray-800 leading-4 font-bold p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mx-auto"
       @click="abort()"
     >
       <span class="material-icons">clear</span>
@@ -44,7 +44,6 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useSpeech } from "../composables/speech";
-import { useChat } from "../composables/chat";
 
 defineProps({
   pending: { type: Boolean, default: false },
@@ -53,7 +52,7 @@ defineProps({
 const emit = defineEmits(["send"]);
 
 const message = ref("");
-const { enableAudio } = useChat();
+const { isAudioEnabled } = useSpeech();
 const { output, inProgress, start, stop, abort } = useSpeech();
 
 const inputRows = computed(() => {
