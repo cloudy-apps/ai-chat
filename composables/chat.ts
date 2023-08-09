@@ -21,12 +21,13 @@ function prompt(): Message[] {
   ];
 }
 
+const pending = ref(false);
+const enableAudio = ref(false);
+
 export function useChat() {
+  const { getEnv } = useEnv();
   const bot = ref(localStorage.name);
   const bots = ref([]);
-  const pending = ref(false);
-  const enableAudio = ref(false);
-  const { getEnv, ready } = useEnv();
 
   const history = ref(
     (localStorage.history
@@ -35,7 +36,6 @@ export function useChat() {
   );
 
   async function fetchBots() {
-    await ready;
     const response = await fetch(new URL("/bots", getEnv("BOT_API")), cors);
     bots.value = await response.json();
   }

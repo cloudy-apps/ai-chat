@@ -3,11 +3,9 @@ import { useEnv } from "./env";
 
 export function useAuth() {
   const authenticated = ref(false);
-  const { getEnv, ready } = useEnv();
+  const { getEnv } = useEnv();
 
   onMounted(async function () {
-    await ready;
-
     const auth = await fetch(getEnv("AUTH_API"), {
       mode: "cors",
       credentials: "include",

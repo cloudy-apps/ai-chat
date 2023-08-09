@@ -1,5 +1,9 @@
-import './style.css';
-import { createApp } from 'vue'
-import App from './components/App.vue';
+import "./style.css";
+import { createApp } from "vue";
+import App from "./components/App.vue";
 
-createApp(App).mount('#app')
+fetch("/.env")
+  .then((x) => x.json())
+  .then((env) => {
+    createApp(App, { env }).mount("#app");
+  });

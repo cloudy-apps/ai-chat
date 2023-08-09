@@ -48,12 +48,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useChat } from "../composables/chat";
 import { useAuth } from "../composables/auth";
+import { useEnv } from "../composables/env";
 import NewMessage from "./NewMessage.vue";
 import MessageHistory from "./MessageHistory.vue";
 
+const props = defineProps({ env: { type: Object } });
+const { set } = useEnv();
+onMounted(() => set(props.env));
 const { authenticated } = useAuth();
 const { history, pending, enableAudio, bot, bots, ask, setBot, removeAt } =
   useChat();
