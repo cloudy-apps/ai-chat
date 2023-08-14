@@ -1,6 +1,6 @@
 {
-  "name": "Jarvis",
-  "short_name": "Jarvis",
+  "name": "AI chat",
+  "short_name": "AI chat",
   "description": "An AI chat application built with web technologies and OpenAI",
   "icons": [
     {
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "../",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#1f776f",
   "background_color": "#1f776f"
