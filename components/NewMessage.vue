@@ -9,6 +9,7 @@
       class="flex-grow resize-none rounded p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type in your question..."
       :rows="inputRows"
+      @keyup="onKeyUp"
     ></textarea>
 
     <button
@@ -41,7 +42,7 @@
   </form>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useSpeech } from "../composables/speech";
 
@@ -66,6 +67,13 @@ function sendMessage() {
   if (content) {
     emit("send", content);
     message.value = "";
+  }
+}
+
+function onKeyUp(event: KeyboardEvent) {
+  if (event.code === "Enter" && event.ctrlKey) {
+    event.preventDefault();
+    sendMessage();
   }
 }
 
