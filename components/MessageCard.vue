@@ -19,13 +19,13 @@
           <span class="material-icons">close</span>
         </button>
       </div>
-      <div v-html="message.content" class="text-sm html-message"></div>
+      <div v-html="message.html || message.content" class="text-sm html-message"></div>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
   removable: {

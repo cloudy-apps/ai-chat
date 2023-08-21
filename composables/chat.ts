@@ -11,6 +11,7 @@ const cors: RequestInit = {
 export interface Message {
   role: string;
   content: string;
+  html?: string;
 }
 
 function prompt(): Message[] {
@@ -103,15 +104,8 @@ export function useChat() {
 
   function setBot(name: string) {
     bot.value = name;
+    localStorage.name = name;
   }
-
-  watch(
-    () => bot.value,
-    (value) => {
-      localStorage.name = value;
-      resetChat();
-    }
-  );
 
   onMounted(fetchBots);
 
@@ -129,7 +123,11 @@ export function useChat() {
       return;
     }
 
-    const newMessage = { role: "user", content: message };
+    const newMessage = { role: "user", content: message, html: "" };
+    if (isRichContent(message)) {
+      newMessage.html = await toHTML(message);
+    }
+
     append(newMessage);
 
     pending.value = true;
@@ -137,7 +135,7 @@ export function useChat() {
     const responseText = response.content;
 
     if (isRichContent(responseText)) {
-      response.content = await toHTML(responseText);
+      response.html = await toHTML(responseText);
     }
 
     append(response);
