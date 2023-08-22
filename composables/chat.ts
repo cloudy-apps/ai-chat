@@ -43,7 +43,10 @@ export function useChat() {
   }
 
   async function fetchResults(): Promise<Message> {
-    const messages = unref(history);
+    const messages = unref(history).map(({ role, content }) => ({
+      role,
+      content,
+    }));
     const payload: any = {
       bot: bot.value,
       messages,
