@@ -9,7 +9,7 @@
       class="flex-grow resize-none rounded p-2 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
       placeholder="Type in your question..."
       :rows="inputRows"
-      @keyup="onKeyUp"
+      @keydown="onKeyDown"
     ></textarea>
 
     <button
@@ -70,8 +70,8 @@ function sendMessage() {
   }
 }
 
-function onKeyUp(event: KeyboardEvent) {
-  if (event.code === "Enter" && event.ctrlKey) {
+function onKeyDown(event: KeyboardEvent) {
+  if (event.code === "Enter" && (event.ctrlKey || event.metaKey)) {
     event.preventDefault();
     sendMessage();
   }
